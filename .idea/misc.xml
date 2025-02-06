@@ -12,7 +12,15 @@
         <option value="$PROJECT_DIR$/06_Runtime_Value_Injection/pom.xml" />
         <option value="$PROJECT_DIR$/07_Spring_Enviroment/pom.xml" />
         <option value="$PROJECT_DIR$/08_Spring_Web_MVC/pom.xml" />
+        <option value="$PROJECT_DIR$/RestController/pom.xml" />
+        <option value="$PROJECT_DIR$/09_RESTController/pom.xml" />
+        <option value="$PROJECT_DIR$/10_BackEnd/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/09_RestController/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager">
