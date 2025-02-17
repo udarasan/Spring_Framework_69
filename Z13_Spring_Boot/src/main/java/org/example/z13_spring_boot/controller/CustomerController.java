@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1/customer")
 public class CustomerController {
+    //property injection
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping("save")
-    public String saveCustomer(@RequestBody CustomerDTO customerDTO) {
-        customerService.addCustomer(customerDTO);
-        return customerDTO.toString();
+    @PostMapping( "save")
+    public boolean saveCustomer(@RequestBody CustomerDTO customerDTO) {
+        boolean res=customerService.addCustomer(customerDTO);
+        return res;
     }
 
 }
