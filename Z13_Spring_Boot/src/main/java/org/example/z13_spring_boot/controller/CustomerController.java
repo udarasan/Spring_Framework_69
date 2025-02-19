@@ -1,7 +1,7 @@
 package org.example.z13_spring_boot.controller;
 
 import org.example.z13_spring_boot.dto.CustomerDTO;
-import org.example.z13_spring_boot.service.CustomerService;
+import org.example.z13_spring_boot.service.impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     //property injection
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceImpl customerService;
 
     @PostMapping( "save")
     public boolean saveCustomer(@RequestBody CustomerDTO customerDTO) {
