@@ -3,6 +3,7 @@ package org.example.z13_spring_boot.controller;
 import org.example.z13_spring_boot.dto.CustomerDTO;
 import org.example.z13_spring_boot.dto.ItemDTO;
 import org.example.z13_spring_boot.service.ItemService;
+import org.example.z13_spring_boot.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,24 +16,23 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping( "save")
-    public boolean saveItem(@RequestBody ItemDTO itemDTO) {
-        System.out.println(itemDTO.getCode());
-        boolean res=itemService.addItem(itemDTO);
-        return res;
+    public ResponseUtil saveItem(@RequestBody ItemDTO itemDTO) {
+        itemService.addItem(itemDTO);
+        return new ResponseUtil(201,"Item Saved",null);
     }
 
     @PutMapping("update")
-    public boolean updateItem(@RequestBody ItemDTO itemDTO) {
-        boolean res=itemService.updateItem(itemDTO);
-        return res;
+    public ResponseUtil updateItem(@RequestBody ItemDTO itemDTO) {
+        itemService.updateItem(itemDTO);
+        return new ResponseUtil(200,"Item Updated",null);
     }
     @DeleteMapping(path = "delete/{id}")
-    public boolean deleteItem(@PathVariable("id") int id) {
+    public ResponseUtil deleteItem(@PathVariable("id") int id) {
         itemService.deleteItem(id);
-        return true;
+        return new ResponseUtil(200,"Item Deleted",null);
     }
     @GetMapping("getAll")
-    public List<ItemDTO> getAllItems() {
-        return itemService.getAllItems();
+    public ResponseUtil getAllItems() {
+        return new ResponseUtil(200,"Get All Items",itemService.getAllItems());
     }
 }

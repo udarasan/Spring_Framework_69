@@ -4,6 +4,8 @@ import org.example.z13_spring_boot.dto.ItemDTO;
 import org.example.z13_spring_boot.entity.Item;
 import org.example.z13_spring_boot.repo.ItemRepo;
 import org.example.z13_spring_boot.service.ItemService;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,34 +16,24 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemRepo itemRepo;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
-    public boolean addItem(ItemDTO itemDTO) {
+    public void addItem(ItemDTO itemDTO) {
         if (itemRepo.existsById(itemDTO.getCode())){
-            return false;
+           throw new RuntimeException("Item already exists");
         }
-        Item item = new Item();
-        item.setCode(itemDTO.getCode());
-        item.setName(itemDTO.getName());
-        item.setPrice(itemDTO.getPrice());
-        item.setQuantity(itemDTO.getQuantity());
-        itemRepo.save(item);
-        return true;
+        itemRepo.save(modelMapper.map(itemDTO, Item.class));
 
     }
 
     @Override
-    public boolean updateItem(ItemDTO itemDTO) {
+    public void updateItem(ItemDTO itemDTO) {
         if (itemRepo.existsById(itemDTO.getCode())){
-            itemRepo.save(
-                    new Item(
-                            itemDTO.getCode(),
-                            itemDTO.getName(),
-                            itemDTO.getQuantity(),
-                            itemDTO.getPrice()));
-            return true;
+            itemRepo.save(modelMapper.map(itemDTO, Item.class));
         }
-        return false;
+        throw new RuntimeException("Item does not exist");
     }
 
     @Override
@@ -51,11 +43,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDTO> getAllItems() {
-        List<Item> all=itemRepo.findAll();
-        List<ItemDTO> itemsDTOList=new ArrayList<ItemDTO>();
-        for (Item item:all){
-            itemsDTOList.add(new ItemDTO(item.getCode(),item.getName(),item.getQuantity(),item.getPrice()));
-        }
-        return itemsDTOList;
+        return modelMapper.map(itemRepo.findAll(),
+                new TypeToken<ItemDTO>(){}.getType());
     }
 }
