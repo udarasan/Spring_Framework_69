@@ -23,7 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean addCustomer(CustomerDTO customerDTO) {
         if (customerRepo.existsById(customerDTO.getId())) {
-            return false;
+            throw new RuntimeException("Customer already exists");
         }
         customerRepo.save(modelMapper.map(customerDTO, Customer.class));
         return true;
@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
             customerRepo.save(modelMapper.map(customerDTO, Customer.class));
             return true;
         }
-        return false;
+        throw new RuntimeException("Customer does not exist");
     }
 
     @Override
