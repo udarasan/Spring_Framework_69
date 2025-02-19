@@ -21,19 +21,17 @@ public class CustomerServiceImpl implements CustomerService {
     private ModelMapper modelMapper;
 
     @Override
-    public boolean addCustomer(CustomerDTO customerDTO) {
+    public void addCustomer(CustomerDTO customerDTO) {
         if (customerRepo.existsById(customerDTO.getId())) {
             throw new RuntimeException("Customer already exists");
         }
         customerRepo.save(modelMapper.map(customerDTO, Customer.class));
-        return true;
     }
 
     @Override
-    public boolean updateCustomer(CustomerDTO customerDTO) {
+    public void updateCustomer(CustomerDTO customerDTO) {
         if (customerRepo.existsById(customerDTO.getId())) {
             customerRepo.save(modelMapper.map(customerDTO, Customer.class));
-            return true;
         }
         throw new RuntimeException("Customer does not exist");
     }

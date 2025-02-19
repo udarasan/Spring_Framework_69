@@ -19,28 +19,27 @@ public class CustomerController {
 
     @PostMapping( "save")
     public ResponseUtil saveCustomer(@RequestBody CustomerDTO customerDTO) {
-        boolean res=customerService.addCustomer(customerDTO);
-        if (res){
-            return new ResponseUtil(201,"Customer Saved",null);
-        }else {
-            return new ResponseUtil(200,"Exits Customer",null);
-        }
-
+        customerService.addCustomer(customerDTO);
+        return new ResponseUtil(201,"Customer Saved",null);
     }
 
     @PutMapping("update")
-    public boolean updateCustomer(@RequestBody CustomerDTO customerDTO) {
-        boolean res=customerService.updateCustomer(customerDTO);
-        return res;
+    public ResponseUtil updateCustomer(@RequestBody CustomerDTO customerDTO) {
+        customerService.updateCustomer(customerDTO);
+        return new ResponseUtil(200,"Customer Updated",null);
+
     }
     @DeleteMapping(path = "delete/{id}")
-    public boolean deleteCustomer(@PathVariable("id") int id) {
+    public ResponseUtil deleteCustomer(@PathVariable("id") int id) {
         customerService.deleteCustomer(id);
-        return true;
+        return new ResponseUtil(200,"Customer Deleted",null);
     }
     @GetMapping("getAll")
-    public List<CustomerDTO> getAllCustomers() {
-        return customerService.getAllCustomers();
+    public ResponseUtil getAllCustomers() {
+        return new ResponseUtil(
+                200,
+                "Customer List",
+                customerService.getAllCustomers());
     }
 
 }

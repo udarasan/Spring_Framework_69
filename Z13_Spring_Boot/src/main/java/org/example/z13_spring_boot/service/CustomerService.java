@@ -6,8 +6,8 @@ import org.example.z13_spring_boot.entity.Customer;
 import java.util.List;
 
 public interface CustomerService {
-    boolean addCustomer(CustomerDTO customerDTO);
-    boolean updateCustomer(CustomerDTO customerDTO);
+    void addCustomer(CustomerDTO customerDTO);
+    void updateCustomer(CustomerDTO customerDTO);
     void deleteCustomer(int id);
     List<CustomerDTO> getAllCustomers();
 }
