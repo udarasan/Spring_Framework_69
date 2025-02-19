@@ -25,10 +25,6 @@ public class CustomerServiceImpl implements CustomerService {
         if (customerRepo.existsById(customerDTO.getId())) {
             return false;
         }
-        /*Customer customer=new Customer(
-                customerDTO.getId(),
-                customerDTO.getName(),
-                customerDTO.getAddress());*/
         customerRepo.save(modelMapper.map(customerDTO, Customer.class));
         return true;
     }
@@ -49,12 +45,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDTO> getAllCustomers() {
-        /*List<Customer>customerList=customerRepo.findAll();
-        List<CustomerDTO> customerDTOList=new ArrayList<>();
-        for (Customer customer:customerList) {
-            customerDTOList.add(
-                    new CustomerDTO(customer.getId(),customer.getName(),customer.getAddress()));
-        }*/
         return modelMapper.map(customerRepo.findAll(),
                 new TypeToken<List<CustomerDTO>>() {}.getType());
     }
