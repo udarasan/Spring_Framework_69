@@ -14,6 +14,7 @@ import java.util.List;
 public class CustomerController {
     //property injection
     @Autowired
+
     private CustomerServiceImpl customerService;
 
     @PostMapping( "save")
