@@ -5,6 +5,7 @@ import org.example.z13_spring_boot.dto.ItemDTO;
 import org.example.z13_spring_boot.service.ItemService;
 import org.example.z13_spring_boot.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +16,13 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @PostMapping( "save")
+    @PostMapping( value = "save",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveItem(@RequestBody ItemDTO itemDTO) {
         itemService.addItem(itemDTO);
         return new ResponseUtil(201,"Item Saved",null);
     }
 
-    @PutMapping("update")
+    @PutMapping(value = "update",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil updateItem(@RequestBody ItemDTO itemDTO) {
         itemService.updateItem(itemDTO);
         return new ResponseUtil(200,"Item Updated",null);
